@@ -1,0 +1,22 @@
+version: '25.0.3'
+services:
+  db:
+    image: mysql:5.7
+    restart: always
+    container_name: db
+    environment:
+      MYSQL_DATABASE: 'database'
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'admin'
+      MYSQL_MAX_CONNECTIONS: '151' # Configura el número máximo de conexiones
+    ports:
+      - '3307:3306'
+    volumes:
+      - ./src/test/resources/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8086:8080
